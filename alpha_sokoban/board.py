@@ -1,11 +1,12 @@
-from constants import TILE_SYMBOLS, INVALLID_TILE_SYMBOL, INVALID_TILE, MOVES, TILE_TYPES
+from constants import TILE_SYMBOLS, INVALID_TILE_SYMBOL, INVALID_TILE, MOVES, TILE_TYPES
 from finder import find_player_position_from_board
 from helpers import check_if_valid_move_direction
 
 class board:
     def __init__(self, board_matrix):
         self.integer_matrix = board_matrix
-        (self.rows, self.cols) = self.integer_matrix.shape
+        self.shape = self.integer_matrix.shape
+        (self.rows, self.cols) = self.shape
 
     def __getitem__(self,key):
         return self.integer_matrix[key]
@@ -18,8 +19,9 @@ class board:
                 if val in TILE_SYMBOLS:
                     to_print.append(TILE_SYMBOLS[val])
                 else:
-                    to_print.append(INVALLID_TILE_SYMBOL)
-            print(" ".join(to_print))
+                    to_print.append(INVALID_TILE_SYMBOL)
+            output = " ".join(to_print)
+            print(output)
 
     def get_index_of_player(self):
         return find_player_position_from_board(self.integer_matrix)
